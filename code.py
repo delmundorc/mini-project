@@ -16,6 +16,15 @@ def show_tasks():
             print(f"{i}. {task}")
         print()
 
+def edit_task(task_number, new_task):
+    """Edit a task by its number."""
+    if 1 <= task_number <= len(tasks):
+        old_task = tasks[task_number - 1]
+        tasks[task_number - 1] = new_task.strip()
+        print(f" Edited: '{old_task}' → '{new_task}'")
+    else:
+        print(" Invalid task number!")
+
 def remove_task(task_number):
     if 1 <= task_number <= len(tasks):
         removed = tasks.pop(task_number - 1)
@@ -28,8 +37,9 @@ def main():
         print("\n--- TO DO LIST ---")
         print("1. Add Task")
         print("2. Show Tasks")
-        print("3. Remove Task")
-        print("4. Exit")
+        print("3. Edit Task")
+        print("4. Remove Task")
+        print("5. Exit")
         
         choice = input("Enter choice: ")
         
@@ -40,11 +50,19 @@ def main():
             show_tasks()
         elif choice == "3":
             try:
+                n = int(input("Enter task number to edit: "))
+                new_text = input("Enter new description: ")
+                edit_task(n, new_text)
+            except ValueError:
+                print(" Please enter a valid number!")
+
+        elif choice == "4":
+            try:
                 n = int(input("Enter task number to remove: "))
                 remove_task(n)
             except ValueError:
                 print(" Please enter a valid number!")
-        elif choice == "4":
+        elif choice == "5":
             print(" Exiting To-Do List. Goodbye!")
             break
         else:
